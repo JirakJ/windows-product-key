@@ -1,4 +1,5 @@
 Set WshShell = CreateObject("WScript.Shell")
+Set objFSO=CreateObject("Scripting.FileSystemObject")
 MsgBox ConvertToKey(WshShell.RegRead("HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\DigitalProductId"))
 
 Function ConvertToKey(Key)
@@ -23,4 +24,11 @@ KeyOutput = "-" & KeyOutput
 End If
 Loop While i >= 0
 ConvertToKey = "Windows product key is: "+KeyOutput
+
+outFile="product_key.txt"
+Set objFile = objFSO.CreateTextFile(outFile,True)
+objFile.Write ConvertToKey & vbCrLf
+objFile.Close
+
 End Function
+
